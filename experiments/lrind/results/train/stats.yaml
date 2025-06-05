@@ -1,0 +1,16 @@
+parameters_count: 12
+termination_reason: "permutation sequence exhausted"
+best_fitness_train: -0.026750515010496596
+best_candidate_train:
+  - 0.0
+  - 0.0
+  - 0.0
+  - -1.0
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+  - 1.0
+  - 0.0

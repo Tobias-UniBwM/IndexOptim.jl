@@ -1,0 +1,34 @@
+# define the structure of the optimized index; note that string values must be actual type names, keys have hardcoded meanings and the definition is parsed recursively.
+index:
+  # this is the structure of the Linear Ratio Index (LRI); the structure can be arbitrarily deep and complex; see index.jl for all supported transforms and reductions. 
+  index:
+    indices:
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+    
+    transforms: [BiasTransform]
+
+    reduction: DivisionReduction
+
+# parameters for the index
+parameters: [1, 1, 1, 1]
+
+# fitness descriptor config
+descriptor:
+  tvi:
+
+# where to store the results
+results: "path/to/results.yaml"
+
+# dataset config
+dataset:
+  # different dataset configuration options for which the index needs to be evaluated
+  option_alpha:
+    imseg: imseg
+  option_beta:
+    imseg: imseg
+

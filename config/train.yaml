@@ -1,0 +1,106 @@
+# define the structure of the optimized index; note that string values must be actual type names, keys have hardcoded meanings and the definition is parsed recursively.
+index:
+  # this is the structure of the Linear Ratio Index (LRI); the structure can be arbitrarily deep and complex; see index.jl for all supported transforms and reductions. 
+  index:
+    indices:
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+    
+    transforms: [BiasTransform]
+
+    reduction: DivisionReduction
+
+# define complexity reductions for the paramters of the index that are applied directly during the optimization
+parameters_modifications:
+  # this sets the parameters to zero if the abs sum of the parametres in their group is one of the smallest <count> sums
+  - dropout:
+      # the indices defining the parameter groups
+      indices:
+        - [1, 5]
+        - [2, 6]
+        - [3, 7]
+      # the numer of groups that are set to zero
+      count: 1
+
+# rounds the parameters to <digits> after the decimal point
+  - round:
+      digits: 2
+
+# optimizer configuration 
+optimizer:
+
+  # initial solution (will be repeated if necessary to fit number of parameters given by the index definition)
+  x0: [1, 1, 2]
+
+  # Search range of x (will be repeated the same way as the initial solution)
+  range: [[-1, 1], [-2, 2], [1, 6]]
+
+  # optimizer specification with optional arguments (currently either bbox, sciml or perm)
+  bbox:
+
+    # keyword arg specifications (some might not work atm due to mismatching types)
+    MaxTime: 100
+    MaxFuncEvals: 75000
+    PopulationSize: 100
+
+    # fitness logging intervals
+    log_train: 5.
+    log_valid: 60.  
+
+  sciml:
+    # solver specification, currently only PRIMA solvers are available
+    solver: NEWUOA
+
+    problem_kwargs:
+      maxiters: 100000
+
+  # permutation optimizer requires an initial solution (x0), which is permuted according to the indices specifications
+  perm:
+
+    # parameter indices groups; permutation is synced in each group and independent for each group 
+    indices:
+      - - [1, 2, 3]
+        - [4, 5, 6]
+      - - [7, 8, 9]
+
+    # force log all permuted candidates
+    log_all: false
+
+# fitness descriptor config
+descriptor:
+  tvi:
+
+# optional results config
+results:
+  path: "path/to/results"
+
+  # where to save best candidate and fitness 
+  stats: "stats.yaml"
+
+  # where to save all resulting index images
+  images: "images"
+
+  # log progress and results to tensorboard
+  tensorboard: 
+    path: "tensorboard"
+
+    # either append, increment or overwrite
+    mode: "increment"
+  
+  # optional step offset 
+  step: 1000
+
+# datasets config
+datasets:
+  # optional definitions of different dataset splits,;if dataset is directly configured it is used for training only
+  train:
+    imseg: imseg
+  valid:
+    imseg: imseg
+  test:
+    imseg: imseg
+

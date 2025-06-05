@@ -1,0 +1,105 @@
+index:
+  clean:
+    indices:
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+      - index:
+          transforms: [LinearTransform]
+          reduction: SummationReduction
+
+    reduction: DivisionReduction  
+
+parameters: 
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+  - 0.0
+
+descriptor:
+  tvi:
+
+results: "experiments/lrir/results/test/results.yaml"
+
+dataset:
+  test:
+    - imseg:
+        captures: "MUDCAD-X/dataset"
+        structure: "sorted"
+        label: "label"
+        categories:
+          fleece: [22, 13, 54]
+          hedge: [107, 155, 110]
+          net2dgreen: [48, 92, 56]
+          net3dgray: [100, 97, 110]
+          net3dgreen: [80, 144, 102]
+          net3dyellow: [255, 204, 51]
+          persongreen: [136, 168, 93]
+          personyellow: [204, 153, 51]
+          tarpgray: [203, 201, 212]
+          tarpgreen: [7, 105, 15]
+          turf: [117, 180, 92]
+    - extensions:
+        attributes:
+          name:
+            season:
+              01_Spring: "spring"
+              02_Summer: "summer"
+              03_Autumn: "autumn"
+          area:
+            name: sqm
+            gsd: 0.1
+          category:
+            environment:
+              fleece: "gray"
+              hedge: "green"
+              net2dgreen: "green"
+              net3dgray: "gray"
+              net3dgreen: "green"
+              net3dyellow: "yellow"
+              persongreen: "green"
+              personyellow: "yellow"
+              tarpgray: "gray"
+              tarpgreen: "green"
+              turf: "green"
+            thermal:
+              fleece: false
+              hedge: false
+              net2dgreen: false
+              net3dgray: false
+              net3dgreen: false
+              net3dyellow: false
+              persongreen: true
+              personyellow: true
+              tarpgray: false
+              tarpgreen: false
+              turf: false
+    - filters:
+        captures:
+          - names:
+              - "01_Spring_2022-05-10_rk1_a_4"
+              - "01_Spring_2022-05-10_rk1_b_4"
+              - "02_Summer_2022-08-17_rk1_a_4"
+              - "02_Summer_2022-08-17_rk1_b_4"
+              - "03_Autumn_2022-11-09_rk1_a_4"
+              - "03_Autumn_2022-11-09_rk1_b_4"
+            prefix: true
+            suffix: false
+            invert: false
+        channels:
+          names: ["vis", ]
+          invert: true
+    - resize:
+        resolution: [256, 256]
+    - scale:
+        file: "experiments/extrema.yaml"
+    - equalize:
+        file: "experiments/equ_weights_test.yaml"
