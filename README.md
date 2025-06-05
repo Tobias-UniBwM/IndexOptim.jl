@@ -1,7 +1,5 @@
 # IndexOptim
 
-__!!! The complete package code will be supplied once the paper has been accepted !!!__
-
 This Julia package provides the software code for optimizing spectral indices. It accompanies the publication [_Optimized Spectral Indices for Camouflage Detection in Multispectral Imagery_](https://www.tandfonline.com/journals/tgrs20), which contains detailed background information and a comprehensive experimental evaluation of this software tool in the context of camouflage detection. In addition, the package supports arbitrary index structures, custom optimizers, datasets and fitness descriptors.
 
 ## Structure
