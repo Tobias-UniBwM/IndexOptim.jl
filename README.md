@@ -123,7 +123,7 @@ If you use this package in your research please cite the following publication:
   title     = {Optimized Spectral Indices for Camouflage Detection in Multispectral Imagery},
   year      = {2025},
   issn      = {1548-1603},
-  note      = {under review},
+  doi       = {10.1080/15481603.2025.2508574},
   publisher = {Taylor \& Francis},
 }
 ```
